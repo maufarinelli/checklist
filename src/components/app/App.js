@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import Header from '../common/Header';
+import Header from '../common/header/Header';
 import Main from '../main/Main';
 
 class App extends React.Component {
