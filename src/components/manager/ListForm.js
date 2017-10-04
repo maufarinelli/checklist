@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CheckboxInput from '../common/checkbox/CheckboxInput';
+import TextInput from '../common/textInput/TextInput';
 
 const ListForm = ({checklistItems}) => (
     <form>
@@ -13,6 +14,7 @@ const ListForm = ({checklistItems}) => (
                 value={listItem.value}
                 label={listItem.label} />
         })}
+        <TextInput />
     </form>
 );
 
