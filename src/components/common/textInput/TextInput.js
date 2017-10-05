@@ -22,7 +22,7 @@ class TextInput extends React.Component {
     }
 
     handleKeyPress(event) {
-        if(event.key == 'Enter'){
+        if(event.key === 'Enter'){
             event.preventDefault();
             console.log('enter press here! ');
             this.props.actions.createChecklistItem(this.state.text);

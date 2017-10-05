@@ -1,5 +1,5 @@
 export default {
-    checklistItems: [{
+	checklistItems: [{
          id: 1,
          name: 'test',
          value: 'testando',

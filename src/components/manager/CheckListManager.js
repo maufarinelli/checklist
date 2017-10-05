@@ -8,14 +8,10 @@ import ListForm from './ListForm';
 export class CheckListManager extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            checklistItems: Array.from(this.props.checklistItems)
-        };
     }
 
     render() {
-        return (this.state.checklistItems.length > 0 ? <ListForm checklistItems={this.state.checklistItems} /> : <ListForm />);
+        return (this.props.checklistItems.length > 0 ? <ListForm checklistItems={this.props.checklistItems} /> : <ListForm />);
     }
 }
 
