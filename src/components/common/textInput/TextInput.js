@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as checklistItemsActions from '../../../actions/checklistItemsActions';
 
-class TextInput extends React.Component {
+export class TextInput extends React.Component {
     constructor(props) {
         super(props);
 
@@ -24,7 +24,6 @@ class TextInput extends React.Component {
     handleKeyPress(event) {
         if(event.key === 'Enter'){
             event.preventDefault();
-            console.log('enter press here! ');
             this.props.actions.createChecklistItem(this.state.text);
         }
     }
