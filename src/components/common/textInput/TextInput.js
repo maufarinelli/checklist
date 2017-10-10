@@ -25,6 +25,7 @@ export class TextInput extends React.Component {
         if(event.key === 'Enter'){
             event.preventDefault();
             this.props.actions.createChecklistItem(this.state.text);
+					  this.setState({text: ''});
         }
     }
 
