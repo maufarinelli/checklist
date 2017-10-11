@@ -1,0 +1,8 @@
+.checkbox-input {
+	border-bottom: 1px solid #ccc;
+}
+
+.checkbox-input .form-check-input {
+	margin-right: 3px;
+	vertical-align: top;
+}
