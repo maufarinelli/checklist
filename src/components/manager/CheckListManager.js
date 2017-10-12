@@ -11,7 +11,13 @@ export class CheckListManager extends React.Component {
     }
 
     render() {
-        return (this.props.checklistItems.length > 0 ? <ListForm checklistItems={this.props.checklistItems} /> : <ListForm />);
+        return (this.props.checklistItems.length > 0 ?
+          <ListForm
+            checklistItems={this.props.checklistItems}
+            checklistTitle={this.props.checklistTitle}
+          /> :
+          <ListForm />
+        );
     }
 }
 
@@ -21,14 +27,15 @@ function getCourseById(allCheckLists, id) {
 
 function mapStateToProps(state, ownProps) {
     //const checkListId = ownProps.params.id;
-    let checklistItems = state.checklistItems;
+    let {checklistItems, checklistTitle} = state;
 
     // if(checkListId) {
     //     checklist = getCourseById(state.allCheckLists, checkListId);
     // }
 
     return {
-        checklistItems: checklistItems
+        checklistItems,
+        checklistTitle
     };
 }
 

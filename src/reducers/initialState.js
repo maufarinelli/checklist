@@ -1,4 +1,5 @@
 export default {
+	checklistTitle: '',
 	checklistItems: [{
          id: 1,
          name: 'test',

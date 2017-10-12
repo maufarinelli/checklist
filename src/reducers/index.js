@@ -1,8 +1,12 @@
 import {combineReducers} from 'redux';
-import checklistItems from './checklistItemsReducer';
+import {
+    checklistItemsReducer as checklistItems,
+    checklistTitleReducer as checklistTitle
+} from './checklistItemsReducer';
 
 const rootReducer = combineReducers({
-    checklistItems
+    checklistItems,
+    checklistTitle
 });
 
 export default rootReducer;

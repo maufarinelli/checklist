@@ -10,7 +10,7 @@ export class TextInput extends React.Component {
         super(props);
 
         this.state = {
-            text: ''
+            text: props.value
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -24,22 +24,30 @@ export class TextInput extends React.Component {
     handleKeyPress(event) {
         if(event.key === 'Enter'){
             event.preventDefault();
-            this.props.actions.createChecklistItem(this.state.text);
-					  this.setState({text: ''});
+
+            if(event.currentTarget.id === 'checklist-title') {
+							this.props.actions.createChecklistTitle(this.state.text);
+            } else {
+							this.props.actions.createChecklistItem(this.state.text);
+            }
+
+					  this.setState((prevState, props) => ({text: this.state.value}));
         }
     }
 
     render() {
         return (
             <div className="form-group">
+              {this.props.label ? <label htmlFor={this.props.id}>{this.props.label}</label> : ''}
                 <input
                     className="form-control"
                     type="text"
                     name="new-item"
+                    id={this.props.id}
                     value={this.state.text}
                     onChange={this.handleChange}
                     onKeyPress={this.handleKeyPress}
-                    placeholder="Add a new item" />
+                    placeholder={this.props.label ? '' : 'Add a new item'} />
             </div>
         );
     }
