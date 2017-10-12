@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CheckboxInput from '../common/checkbox/CheckboxInput';
+import ChecklistItem from '../checklistItem/ChecklistItem';
 import TextInput from '../common/textInput/TextInput';
 import Title from '../common/title/Title';
 import * as checklistItemsActions from '../../actions/checklistItemsActions';
@@ -29,7 +29,7 @@ export class ListForm extends React.Component {
         <TextInput id="checklist-title" label="Title" value={this.props.checklistTitle} />
 
 				{this.props.checklistItems.map(listItem => {
-					return <CheckboxInput
+					return <ChecklistItem
             key={listItem.id}
             id={listItem.id}
             name={listItem.name}
