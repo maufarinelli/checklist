@@ -21,21 +21,25 @@ export class CheckListManager extends React.Component {
     }
 }
 
-function getCourseById(allCheckLists, id) {
+function getChecklistById(allCheckLists, id) {
     return allCheckLists.filter(checklist => checklist.id === id);
 }
 
 function mapStateToProps(state, ownProps) {
-    //const checkListId = ownProps.params.id;
-    let {checklistItems, checklistTitle} = state;
+    const checkListId = ownProps.match.params.id;
+    //const checkListId = 0;
+    let checklist = {
+        items: state.checklistItems,
+        title: state.checklistTitle
+    };
 
-    // if(checkListId) {
-    //     checklist = getCourseById(state.allCheckLists, checkListId);
-    // }
+    if(checkListId) {
+        checklist = getChecklistById(state, checkListId);
+    }
 
     return {
-        checklistItems,
-        checklistTitle
+        checklistItems: checklist.items,
+        checklistTitle: checklist.title
     };
 }
 

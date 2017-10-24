@@ -2,10 +2,14 @@ import * as types from '../actions/actionTypes';
 import initialState from './initialState';
 import _ from 'lodash';
 
-export function checklistItemsReducer(state = initialState[0].checklistItems, action) {
+export function checklistItemsReducer(state = initialState, action) {
     switch(action.type) {
         case types.LOAD_CHECKLIST_ITEMS:
-            return state;
+            //TODO: check this case
+            if(action.id) {
+                return state.filter(checklist => checklist.id === action.id)
+            }
+            return [];
             break;
 
         case types.CREATE_CHECKLIST_ITEM:
@@ -20,11 +24,11 @@ export function checklistItemsReducer(state = initialState[0].checklistItems, ac
             break;
 
         case types.UPDATE_CHECKLIST:
-            //TODO: change logic
-            return [
-                Object.assign({}, action.payload),
-                ...state
-            ];
+            if(action.id) {
+                return state.filter(checklist => checklist.id === action.id);
+            } else {
+                throw 'Checklist not found';
+            }
             break;
 
         case types.DELETE_CHECKLIST_ITEM:
@@ -34,16 +38,16 @@ export function checklistItemsReducer(state = initialState[0].checklistItems, ac
             break;
 
         default:
-            return state;
+            return [];
     }
 }
 
-export function checklistTitleReducer(state = initialState[0].checklistTitle, action) {
+export function checklistTitleReducer(state = 'Add a new title', action) {
     switch(action.type) {
       case types.CREATE_CHECKLIST_TITLE:
           return action.title;
           break;
-			default:
-				return state;
+      default:
+          return state;
     }
 }

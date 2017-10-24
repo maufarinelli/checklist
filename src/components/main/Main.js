@@ -10,7 +10,8 @@ const Main = () => (
         <Switch>
             <Route exact path='/' component={Home}/>
             <Route path='/list' component={AllCheckLists}/>
-            <Route path='/add-checklist' component={CheckListManager}/>
+            <Route path='/checklist' component={CheckListManager}/>
+            <Route path='/checklist/:id' component={CheckListManager}/>
             <Route path='/about' component={About}/>
         </Switch>
     </main>

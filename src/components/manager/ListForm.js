@@ -50,7 +50,12 @@ ListForm.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-	return ownProps;
+    let {checklistItems, checklistTitle} = state;
+
+    return {
+        checklistItems,
+        checklistTitle
+    };
 }
 
 function mapDispatchToProps(dispatch) {

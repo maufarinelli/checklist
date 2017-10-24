@@ -1,8 +1,8 @@
 export default [
     {
-        checklistId: 1,
-        checklistTitle: 'Title 1',
-        checklistItems: [{
+        id: 1,
+        title: 'Title 1',
+        items: [{
              id: 1,
              name: 'test',
              value: 'testando',
@@ -22,9 +22,9 @@ export default [
          }]
     },
     {
-        checklistId: 2,
-        checklistTitle: 'Title 2',
-        checklistItems: [{
+        id: 2,
+        title: 'Title 2',
+        items: [{
             id: 1,
             name: 'test',
             value: 'testando',
@@ -44,9 +44,9 @@ export default [
             }]
     },
     {
-        checklistId: 3,
-        checklistTitle: 'Title 3',
-        checklistItems: [{
+        id: 3,
+        title: 'Title 3',
+        items: [{
             id: 1,
             name: 'test',
             value: 'testando',

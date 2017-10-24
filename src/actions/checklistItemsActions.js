@@ -14,7 +14,7 @@ export function createChecklistItem(item) {
 
 //TODO: verify it
 export function updateChecklistItem(item) {
-    return {type: types.UPDATE_CHECKLIST, item};
+    return {type: types.UPDATE_CHECKLIST, id: item.id};
 }
 
 export function deleteChecklistItem(id) {
