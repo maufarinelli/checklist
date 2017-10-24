@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as checklistsActions from '../../actions/checklistsActions';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 export class AllCheckLists extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ export class AllCheckLists extends React.Component {
                 <h1>All checklists</h1>
                 <ul>
                     {this.props.list.map(checklist => {
-                        return (<li><Link className="btn btn-default" to={'/checklist/' + checklist.id}>{checklist.title}</Link></li>);
+                        return (<li key={checklist.id}><NavLink className="btn btn-default" to={'/checklist/' + checklist.id}>{checklist.title}</NavLink></li>);
                     })}
                 </ul>
             </div>
@@ -42,6 +42,4 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(AllCheckLists)
-)
+export default connect(mapStateToProps, mapDispatchToProps)(AllCheckLists);
