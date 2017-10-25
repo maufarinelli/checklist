@@ -3,17 +3,11 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as checklistsActions from '../../actions/checklistsActions';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export class AllCheckLists extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick(event) {
-
     }
 
     render() {
@@ -22,7 +16,13 @@ export class AllCheckLists extends React.Component {
                 <h1>All checklists</h1>
                 <ul>
                     {this.props.list.map(checklist => {
-                        return (<li key={checklist.id}><NavLink className="btn btn-default" to={'/checklist/' + checklist.id}>{checklist.title}</NavLink></li>);
+                        return (<li key={checklist.id}>
+                            <Link
+                                className="btn btn-default"
+                                to={`/checklist/${checklist.id}`}
+                            >{checklist.title}
+                            </Link>
+                        </li>);
                     })}
                 </ul>
             </div>
