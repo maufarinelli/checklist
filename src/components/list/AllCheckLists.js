@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as checklistsActions from '../../actions/checklistsActions';
 import {Link} from 'react-router-dom';
+import './all-checklists.css';
 
 export class AllCheckLists extends React.Component {
     constructor(props) {
@@ -12,13 +13,13 @@ export class AllCheckLists extends React.Component {
 
     render() {
         return (
-            <div>
+            <div classame="all-checklists">
                 <h1>All checklists</h1>
-                <ul>
+                <ul className="list-group">
                     {this.props.list.map(checklist => {
-                        return (<li key={checklist.id}>
+                        return (<li className="list-group-item" key={checklist.id}>
                             <Link
-                                className="btn btn-default"
+                                className="all-checklists-link"
                                 to={`/checklist/${checklist.id}`}
                             >{checklist.title}
                             </Link>

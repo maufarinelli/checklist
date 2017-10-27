@@ -13,10 +13,10 @@ export function checklistItemsReducer(state = initialState, action) {
             break;
 
         case types.CREATE_CHECKLIST_ITEM:
-            var lastId = _.last(state).id;
+            var lastId = _.uniqueId();
             return [
                 ...state, {
-                    id: ++lastId,
+                    id: lastId,
                     name: action.item,
                     value: action.item,
                     label: action.item
@@ -42,7 +42,7 @@ export function checklistItemsReducer(state = initialState, action) {
     }
 }
 
-export function checklistTitleReducer(state = 'Add a new title', action) {
+export function checklistTitleReducer(state = '', action) {
     switch(action.type) {
       case types.CREATE_CHECKLIST_TITLE:
           return action.title;

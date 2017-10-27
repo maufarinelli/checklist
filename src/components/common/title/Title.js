@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './title.css'
 
 const Title = ({checklistTitle}) => (
-	<h1>{checklistTitle ? checklistTitle : 'Add a new checklist'}</h1>
+	<h1 className={"checklist-title " + (checklistTitle === '' ? 'no-title' : '')}>{checklistTitle === '' ? 'Add a new checklist' : checklistTitle}</h1>
 );
 
 Title.propTypes = {

@@ -35,7 +35,7 @@ function getChecklistById(allCheckLists, id) {
 
 function mapStateToProps(state, ownProps) {
     const checkListId = parseInt(ownProps.match.params.id, 10);
-    //const checkListId = 0;
+
     let checklist = {
         items: state.checklistItems,
         title: state.checklistTitle

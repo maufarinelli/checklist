@@ -9,39 +9,46 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 
+import './list-form.css';
+
 export class ListForm extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.onDelete = this.onDelete.bind(this);
-  }
+        this.onDelete = this.onDelete.bind(this);
+    }
 
-  onDelete(event) {
-		event.preventDefault();
-		this.props.actions.deleteChecklistItem(parseInt(event.currentTarget.dataset.id));
-  }
+    onDelete(event) {
+        event.preventDefault();
+        this.props.actions.deleteChecklistItem(event.currentTarget.dataset.id);
+    }
 
-  render() {
-    return (
-      <form>
-        <Title checklistTitle={this.props.checklistTitle} />
+    render() {
+        return (
+            <div>
+                <Title checklistTitle={this.props.checklistTitle}/>
+                <form className="checklist-form">
+                    <TextInput
+                        type="horizontal-form"
+                        id="checklist-title"
+                        label="Title : "
+                        value={this.props.checklistTitle}/>
 
-        <TextInput id="checklist-title" label="Title" value={this.props.checklistTitle} />
+                    {this.props.checklistItems.map(listItem => {
+                        return <ChecklistItem
+                            key={listItem.id}
+                            id={listItem.id}
+                            name={listItem.name}
+                            value={listItem.value}
+                            label={listItem.label}
+                            onDelete={this.onDelete}/>
+                    })}
 
-				{this.props.checklistItems.map(listItem => {
-					return <ChecklistItem
-            key={listItem.id}
-            id={listItem.id}
-            name={listItem.name}
-            value={listItem.value}
-            label={listItem.label}
-            onDelete={this.onDelete} />
-				})}
-
-        <TextInput />
-      </form>
-		);
-  }
+                    <TextInput type="input-add-item" />
+                </form>
+            </div>
+        );
+    }
 }
 
 ListForm.propTypes = {
@@ -52,7 +59,7 @@ ListForm.propTypes = {
 function mapStateToProps(state, ownProps) {
     let {checklistItems, checklistTitle} = state;
 
-    if(ownProps.checklistItems && ownProps.checklistTitle) {
+    if (ownProps.checklistItems && ownProps.checklistTitle) {
         checklistItems = ownProps.checklistItems;
         checklistTitle = ownProps.checklistTitle;
     }
@@ -63,11 +70,11 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-	return {
-		actions: bindActionCreators(checklistItemsActions, dispatch)
-	};
+    return {
+        actions: bindActionCreators(checklistItemsActions, dispatch)
+    };
 }
 
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(ListForm)
+    connect(mapStateToProps, mapDispatchToProps)(ListForm)
 )
