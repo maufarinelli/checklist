@@ -10,14 +10,6 @@ export class CheckListManager extends React.Component {
         super(props);
     }
 
-    componentWillMount() {
-        console.log(this.props.match.params);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log('nextProps', nextProps);
-    }
-
     render() {
         return (this.props.checklistItems.length > 0 ?
           <ListForm
