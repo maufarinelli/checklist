@@ -11,61 +11,54 @@ import {bindActionCreators} from 'redux';
 
 import './list-form.css';
 
-export class ListForm extends React.Component {
-    constructor(props) {
-        super(props);
+const ListForm = ({
+    checklistTitle,
+    checklistItems,
+    onDelete,
+    onAddItem,
+    onAddTitle
+}) => (
+    <div>
+        <Title checklistTitle={checklistTitle}/>
+        <form className="checklist-form">
+            <TextInput
+                id="checklist-title"
+                label="Title : "
+                value={checklistTitle}
+                onAddTitle={onAddTitle}
+            />
 
-        this.onDelete = this.onDelete.bind(this);
-    }
+            {checklistItems.map(listItem => {
+                return <ChecklistItem
+                    key={listItem.id}
+                    id={listItem.id}
+                    name={listItem.name}
+                    value={listItem.value}
+                    label={listItem.label}
+                    onDelete={onDelete} />
+            })}
 
-    onDelete(event) {
-        event.preventDefault();
-        this.props.actions.deleteChecklistItem(event.currentTarget.dataset.id);
-    }
-
-    render() {
-        return (
-            <div>
-                <Title checklistTitle={this.props.checklistTitle}/>
-                <form className="checklist-form">
-                    <TextInput
-                        type="horizontal-form"
-                        id="checklist-title"
-                        label="Title : "
-                        value={this.props.checklistTitle}/>
-
-                    {this.props.checklistItems.map(listItem => {
-                        return <ChecklistItem
-                            key={listItem.id}
-                            id={listItem.id}
-                            name={listItem.name}
-                            value={listItem.value}
-                            label={listItem.label}
-                            onDelete={this.onDelete}/>
-                    })}
-
-                    <TextInput type="input-add-item" />
-                </form>
-            </div>
-        );
-    }
-}
+            <TextInput onAddItem={onAddItem} />
+        </form>
+    </div>
+);
 
 ListForm.propTypes = {
+    onDelete: PropTypes.func.isRequired,
     checklistItems: PropTypes.array.isRequired,
     checklistTitle: PropTypes.string
 };
 
 function mapStateToProps(state, ownProps) {
-    let {checklistItems, checklistTitle} = state;
+    let {items, title} = state.checklist;
 
-    if (ownProps.checklistItems && ownProps.checklistTitle) {
-        checklistItems = ownProps.checklistItems;
-        checklistTitle = ownProps.checklistTitle;
-    }
+    // if (ownProps.checklistItems && ownProps.checklistTitle) {
+    //     checklistItems = ownProps.checklistItems;
+    //     checklistTitle = ownProps.checklistTitle;
+    // }
     return {
-        checklistItems,
-        checklistTitle
+        checklistItems: items,
+        checklistTitle: title
     };
 }
 

@@ -1,5 +1,10 @@
 export default [
     {
+        id: 0,
+        title: '',
+        items: []
+    },
+    {
         id: 1,
         title: 'Title 1',
         items: [{

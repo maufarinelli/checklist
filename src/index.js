@@ -11,7 +11,6 @@ import {loadChecklistItems} from './actions/checklistItemsActions';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
-store.dispatch(loadChecklists());
 store.dispatch(loadChecklistItems());
 
 ReactDOM.render(

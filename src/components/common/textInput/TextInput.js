@@ -18,6 +18,10 @@ export class TextInput extends React.Component {
         this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.state.text = nextProps.value;
+    }
+
     handleChange(event) {
         this.setState({text: event.target.value});
     }
@@ -27,9 +31,9 @@ export class TextInput extends React.Component {
             event.preventDefault();
 
             if (event.currentTarget.id === 'checklist-title') {
-                this.props.actions.createChecklistTitle(this.state.text);
+                this.props.onAddTitle(this.state.text);
             } else {
-                this.props.actions.createChecklistItem(this.state.text);
+                this.props.onAddItem(this.state.text);
             }
 
             this.setState((prevState, props) => ({text: ''}));
@@ -38,9 +42,9 @@ export class TextInput extends React.Component {
 
     render() {
         return (
-            <div className={"form-group " +  (this.props.type === 'horizontal-form' ? 'row' : '') + (this.props.type === 'input-add-item' ? 'checklist-input-add-item' : '')}>
-                {this.props.label ? <label className={(this.props.type === 'horizontal-form' ? 'col-form-label col-sm-2' : '')} htmlFor={this.props.id}>{this.props.label}</label> : ''}
-                <div className={(this.props.type === 'horizontal-form' ? 'col-sm-10' : '')}>
+            <div className="form-group">
+                {this.props.label ? <label htmlFor={this.props.id}>{this.props.label}</label> : ''}
+                <div>
                     <input
                         className="form-control"
                         type="text"
@@ -57,15 +61,15 @@ export class TextInput extends React.Component {
 }
 
 TextInput.propTypes = {
-    type: PropTypes.string,
     id: PropTypes.string,
     label: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    onAddItem: PropTypes.func,
+    onAddTitle: PropTypes.func
 };
 
 function mapStateToProps(state, ownProps) {
     return {
-        type: ownProps.type,
         id: ownProps.id,
         label: ownProps.label,
         value: ownProps.value

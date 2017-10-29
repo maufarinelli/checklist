@@ -10,7 +10,6 @@ export class AllCheckLists extends React.Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <div classame="all-checklists">
