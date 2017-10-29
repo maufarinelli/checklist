@@ -50,12 +50,13 @@ ListForm.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-    let {items, title} = state.checklist;
+    let items, title;
 
-    // if (ownProps.checklistItems && ownProps.checklistTitle) {
-    //     checklistItems = ownProps.checklistItems;
-    //     checklistTitle = ownProps.checklistTitle;
-    // }
+    if (ownProps.checklistItems && ownProps.checklistTitle) {
+        items = ownProps.checklistItems;
+        title = ownProps.checklistTitle;
+    }
+
     return {
         checklistItems: items,
         checklistTitle: title

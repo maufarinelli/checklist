@@ -21,7 +21,7 @@ export class CheckListManager extends React.Component {
     }
 
     componentWillMount() {
-        this.props.actions.loadChecklist(this.props.checklistID);
+        this.props.actions.loadChecklist(this.state);
     }
 
     componentWillUnmount() {
@@ -34,7 +34,7 @@ export class CheckListManager extends React.Component {
     }
 
     onAddItem(value) {
-        this.props.actions.createChecklistItem(this.props.checklistID, value);
+        this.props.actions.createChecklistItem(value);
     }
 
     onAddTitle(value) {
@@ -63,7 +63,7 @@ function mapStateToProps(state, ownProps) {
     const checkListId = parseInt(ownProps.match.params.id, 10) || 0;
     let checklist;
 
-    if(_.isArray(state.checklist)) {
+    if(checkListId !== 0) {
         checklist = getChecklistById(state.allChecklists, checkListId);
     } else {
         checklist = {

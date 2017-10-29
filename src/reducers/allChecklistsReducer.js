@@ -9,16 +9,3 @@ export function allChecklistsReducer(state = initialState, action) {
             return state;
     }
 }
-
-export function checklistsReducer(state = initialState, action) {
-    switch(action.type) {
-        case types.LOAD_CHECKLIST:
-            return state.filter(checklist => checklist.id === action.id)[0];
-            break;
-        case types.RESET_CHECKLIST:
-            return state.filter(checklist => checklist.id === action.id)[0];
-            break;
-        default:
-            return state;
-    }
-}

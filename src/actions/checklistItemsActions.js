@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 
-export function loadChecklist(id) {
-    return {type: types.LOAD_CHECKLIST, id};
+export function loadChecklist(checklist) {
+    return {type: types.LOAD_CHECKLIST, checklist};
 }
 
 export function resetChecklist() {
@@ -20,8 +20,8 @@ export function updateChecklistTitle(title) {
     return {type: types.UPDATE_CHECKLIST_TITLE, title};
 }
 
-export function createChecklistItem(id, item) {
-    return {type: types.CREATE_CHECKLIST_ITEM, id, item};
+export function createChecklistItem(item) {
+    return {type: types.CREATE_CHECKLIST_ITEM, item};
 }
 
 // export function updateChecklistItems(list) {

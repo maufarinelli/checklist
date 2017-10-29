@@ -6,10 +6,15 @@ export function checklistReducer(state = initialState, action) {
     let checklist;
 
     switch (action.type) {
-        // case types.LOAD_CHECKLIST:
-        //     checklist = state.filter(checklist => checklist.id === action.id);
-        //     return checklist[0];
-        //     break;
+        case types.LOAD_CHECKLIST:
+            return {
+                id: action.checklist.id,
+                title: action.checklist.title,
+                items: action.checklist.items
+            };
+            // checklist = state.filter(checklist => checklist.id === action.id);
+            // return checklist[0];
+            break;
 
         case types.RESET_CHECKLIST:
             return {
@@ -53,7 +58,11 @@ export function checklistReducer(state = initialState, action) {
             break;
 
         default:
-            return state;
+            return {
+                id: 0,
+                title: '',
+                items: []
+            };
     }
 }
 
