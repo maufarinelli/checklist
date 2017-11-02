@@ -3,81 +3,100 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
-import * as checklistItemsActions from '../../../actions/checklistItemsActions';
+import * as checklistActions from '../../../actions/checklistActions';
+import _ from 'lodash';
 import './text-input.css';
 
 export class TextInput extends React.Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.state = {
-            text: props.value || ''
-        };
+		this.state = {
+			id: this.props.id,
+			name: this.props.name,
+			value: this.props.value,
+			label: this.props.label
+		};
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-    }
+		this.handleChange = this.handleChange.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
+	}
 
-    handleChange(event) {
-        this.setState({text: event.target.value});
-    }
+	handleChange(event) {
+		this.setState({
+			id: this.state.id || parseInt(_.uniqueId()),
+			name: event.target.value,
+			value: event.target.value,
+			label: event.target.value.substring(0, 1).toUpperCase() + event.target.value.substring(1)
+		});
+	}
 
-    handleKeyPress(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
+	handleKeyPress(event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
 
-            if (event.currentTarget.id === 'checklist-title') {
-                this.props.actions.createChecklistTitle(this.state.text);
-            } else {
-                this.props.actions.createChecklistItem(this.state.text);
-            }
+			if (event.currentTarget.id === 'checklist-title') {
+				this.props.onUpdate(this.state);
+			} else {
+				this.props.onAdd(this.state);
+			}
 
-            this.setState((prevState, props) => ({text: ''}));
-        }
-    }
+			var nextId = this.state.id + 1;
 
-    render() {
-        return (
-            <div className={"form-group " +  (this.props.type === 'horizontal-form' ? 'row' : '') + (this.props.type === 'input-add-item' ? 'checklist-input-add-item' : '')}>
-                {this.props.label ? <label className={(this.props.type === 'horizontal-form' ? 'col-form-label col-sm-2' : '')} htmlFor={this.props.id}>{this.props.label}</label> : ''}
-                <div className={(this.props.type === 'horizontal-form' ? 'col-sm-10' : '')}>
-                    <input
-                        className="form-control"
-                        type="text"
-                        name="new-item"
-                        id={this.props.id}
-                        value={this.state.text}
-                        onChange={this.handleChange}
-                        onKeyPress={this.handleKeyPress}
-                        placeholder={this.props.label ? '' : 'Add a new item'}/>
-                </div>
-            </div>
-        );
-    }
+			this.setState((prevState, props) => ({
+				id: nextId,
+				name: '',
+				value: '',
+				label: ''
+			}));
+		}
+	}
+
+	render() {
+		return (
+			<div className={"form-group " + (this.props.type === 'input-add-item' ? 'checklist-input-add-item' : '')}>
+				{this.props.label ? <label htmlFor={this.props.id}>{this.props.label}</label> : ''}
+				<div className={(this.props.type === 'horizontal-form' ? 'col-sm-10' : '')}>
+					<input
+						className="form-control"
+						type="text"
+						name={this.state.name}
+						id={this.state.id}
+						value={this.state.value}
+						onChange={this.handleChange}
+						onKeyPress={this.handleKeyPress}
+						placeholder={this.state.label ? '' : 'Add a new item'}/>
+				</div>
+			</div>
+		);
+	}
 }
 
 TextInput.propTypes = {
-    type: PropTypes.string,
-    id: PropTypes.string,
-    label: PropTypes.string,
-    value: PropTypes.string
+	type: PropTypes.string,
+	id: PropTypes.string,
+	label: PropTypes.string,
+	value: PropTypes.string,
+	onAdd: PropTypes.func,
+	onUpdate: PropTypes.func,
 };
 
 function mapStateToProps(state, ownProps) {
-    return {
-        type: ownProps.type,
-        id: ownProps.id,
-        label: ownProps.label,
-        value: ownProps.value
-    };
+	return {
+		type: ownProps.type,
+		id: ownProps.id,
+		label: ownProps.label,
+		name: ownProps.name,
+		value: ownProps.value
+	};
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(checklistItemsActions, dispatch)
-    };
+	return {
+		actions: bindActionCreators(checklistActions, dispatch)
+	};
 }
 
 export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(TextInput)
+	connect(mapStateToProps, mapDispatchToProps)(TextInput)
 )
