@@ -3,11 +3,16 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import * as checklistActions from '../../actions/checklistActions';
+import * as checklistsActions from '../../actions/checklistsActions';
 import ListForm from './ListForm';
 
 export class CheckListManager extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			checklist: Object.assign({}, this.props.checklist)
+		};
 
 		this.onAddItem = this.onAddItem.bind(this);
 		this.onDeleteItem = this.onDeleteItem.bind(this);
@@ -15,7 +20,9 @@ export class CheckListManager extends React.Component {
 	}
 
 	onAddItem(item) {
+		this.setState((prevState, props) => ({checklist: item}));
 		this.props.actions.addChecklistItem(item);
+		this.props.actions.saveChecklist(item);
 	}
 
 	onDeleteItem(event) {
@@ -59,7 +66,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators(checklistActions, dispatch)
+		actions: bindActionCreators({...checklistActions, ...checklistsActions}, dispatch)
 	};
 }
 

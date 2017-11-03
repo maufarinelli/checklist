@@ -32,16 +32,18 @@ export class TextInput extends React.Component {
 	}
 
 	handleKeyPress(event) {
+		var nextId;
+
 		if (event.key === 'Enter') {
 			event.preventDefault();
 
 			if (event.currentTarget.id === 'checklist-title') {
-				this.props.onUpdate(this.state);
+				this.props.onUpdate(this.state.value);
+				nextId = 'checklist-title';
 			} else {
 				this.props.onAdd(this.state);
+				nextId = this.state.id + 1;
 			}
-
-			var nextId = this.state.id + 1;
 
 			this.setState((prevState, props) => ({
 				id: nextId,
@@ -56,7 +58,7 @@ export class TextInput extends React.Component {
 		return (
 			<div className={"form-group " + (this.props.type === 'input-add-item' ? 'checklist-input-add-item' : '')}>
 				{this.props.label ? <label htmlFor={this.props.id}>{this.props.label}</label> : ''}
-				<div className={(this.props.type === 'horizontal-form' ? 'col-sm-10' : '')}>
+				<div>
 					<input
 						className="form-control"
 						type="text"

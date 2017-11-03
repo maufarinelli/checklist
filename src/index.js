@@ -6,12 +6,12 @@ import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 import {BrowserRouter} from 'react-router-dom';
 import App from './components/app/App';
-import {loadChecklistsSuccess} from './actions/checklistsActions';
+import {loadChecklists} from './actions/checklistsActions';
 import {loadChecklist} from './actions/checklistActions';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
-store.dispatch(loadChecklistsSuccess());
+store.dispatch(loadChecklists());
 store.dispatch(loadChecklist());
 
 ReactDOM.render(
