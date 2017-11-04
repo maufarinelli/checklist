@@ -14,7 +14,7 @@ export function updateChecklistSuccess(checklist) {
 }
 
 export function loadChecklists() {
-	return function loadCourses(dispatch) {
+	return function dispatchChecklists(dispatch) {
 		return ChecklistsApi.getAllCourses().then(checklists => {
 			dispatch(loadChecklistsSuccess(checklists));
 		}).catch(error => {

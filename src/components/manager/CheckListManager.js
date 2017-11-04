@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as checklistActions from '../../actions/checklistActions';
 import * as checklistsActions from '../../actions/checklistsActions';
 import ListForm from './ListForm';
+import _ from 'lodash';
 
 export class CheckListManager extends React.Component {
 	constructor(props) {
@@ -19,10 +20,17 @@ export class CheckListManager extends React.Component {
 		this.onUpdateTitle = this.onUpdateTitle.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({checklist: nextProps.checklist});
+	}
+
 	onAddItem(item) {
-		this.setState((prevState, props) => ({checklist: item}));
-		this.props.actions.addChecklistItem(item);
-		this.props.actions.saveChecklist(item);
+		let updatedChecklist = Object.assign({}, this.state.checklist, {items: [...this.state.checklist.items, item]});
+		this.setState((prevState, props) => ({
+			checklist: updatedChecklist
+		}));
+		//this.props.actions.addChecklistItem(item);
+		this.props.actions.saveChecklist(updatedChecklist);
 	}
 
 	onDeleteItem(event) {
@@ -38,7 +46,7 @@ export class CheckListManager extends React.Component {
 	render() {
 		return (
 			<ListForm
-					checklist={this.props.checklist}
+					checklist={this.state.checklist}
 					onAddItem={this.onAddItem}
 					onDeleteItem={this.onDeleteItem}
 					onUpdateTitle={this.onUpdateTitle}
@@ -53,10 +61,15 @@ function getChecklistById(allCheckLists, id) {
 
 function mapStateToProps(state, ownProps) {
 	const checkListId = parseInt(ownProps.match.params.id, 10);
-	let checklist = state.checklist;
+	let defaultChecklist = {
+			id: _.uniqueId(),
+			title: '',
+			items: []
+		},
+		checklist = state.checklist;
 
 	if (checkListId) {
-		checklist = getChecklistById(state.allChecklists, checkListId);
+		checklist = getChecklistById(state.allChecklists, checkListId) || defaultChecklist;
 	}
 
 	return {
