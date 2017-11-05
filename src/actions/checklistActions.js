@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
 
-export function loadChecklist(id) {
-    return {type: types.LOAD_CHECKLIST, id};
+export function loadChecklist(checklist) {
+    return {type: types.LOAD_CHECKLIST, checklist};
 }
 
 export function createChecklist() {

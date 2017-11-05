@@ -6,7 +6,6 @@ import Title from '../common/title/Title';
 
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {bindActionCreators} from 'redux';
 
 import './list-form.css';
 
@@ -41,7 +40,7 @@ ListForm.propTypes = {
 	checklist: PropTypes.object.isRequired,
 	onAddItem: PropTypes.func.isRequired,
 	onDeleteItem: PropTypes.func.isRequired,
-	onUpdateTitle: PropTypes.func.isRequired,
+	onUpdateTitle: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

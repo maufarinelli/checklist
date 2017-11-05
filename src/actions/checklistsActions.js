@@ -13,6 +13,10 @@ export function updateChecklistSuccess(checklist) {
 	return {type: types.UPDATE_CHECKLIST_SUCCESS, checklist};
 }
 
+// export function updateNewChecklistId(checklist) {
+// 	return {type: types.UPDATE_NEW_CHECKLIST_ID, checklist};
+// }
+
 export function loadChecklists() {
 	return function dispatchChecklists(dispatch) {
 		return ChecklistsApi.getAllCourses().then(checklists => {

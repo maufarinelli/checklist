@@ -1,4 +1,4 @@
 export default {
-	allChecklists: [],
-  checklist: {}
+    allChecklists: [],
+    checklist: {}
 }

@@ -21,10 +21,10 @@ export class TextInput extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
-
+	
 	handleChange(event) {
 		this.setState({
-			id: this.state.id || parseInt(_.uniqueId()),
+			id: this.props.id === 'checklist-title' ? this.props.id : _.uniqueId(event.target.value + '_'),
 			name: event.target.value,
 			value: event.target.value,
 			label: event.target.value.substring(0, 1).toUpperCase() + event.target.value.substring(1)
@@ -32,21 +32,17 @@ export class TextInput extends React.Component {
 	}
 
 	handleKeyPress(event) {
-		var nextId;
-
 		if (event.key === 'Enter') {
 			event.preventDefault();
 
 			if (event.currentTarget.id === 'checklist-title') {
 				this.props.onUpdate(this.state.value);
-				nextId = 'checklist-title';
 			} else {
 				this.props.onAdd(this.state);
-				nextId = this.state.id + 1;
 			}
 
 			this.setState((prevState, props) => ({
-				id: nextId,
+				id: '',
 				name: '',
 				value: '',
 				label: ''
