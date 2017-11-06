@@ -20,11 +20,19 @@ export class CheckListManager extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if(nextProps.newChecklistId) {
-			nextProps.history.push(`/checklist/${nextProps.newChecklistId}`);
-			this.props.actions.saveChecklist(nextProps.checklist);
-		}
 		this.setState({checklist: nextProps.checklist});
+
+		// if(nextProps.newChecklistId) {
+		// 	this.props.actions.saveChecklist(nextProps.checklist);
+		// }
+	}
+
+	isNewChecklist() {
+		return !!this.props.newChecklistId;
+	}
+
+	changeRoot() {
+		this.props.history.push(`/checklist/${this.props.newChecklistId}`);
 	}
 
 	onAddItem(item) {
@@ -34,6 +42,10 @@ export class CheckListManager extends React.Component {
 		}));
 
 		this.props.actions.saveChecklist(updatedChecklist);
+
+		if(this.isNewChecklist()) {
+			this.changeRoot();
+		}
 	}
 
 	onDeleteItem(event) {
@@ -42,12 +54,21 @@ export class CheckListManager extends React.Component {
 		});
 		let updatedChecklist = Object.assign({}, this.state.checklist, {items: updatedItems});
 		this.props.actions.saveChecklist(updatedChecklist);
+
+		if(this.isNewChecklist()) {
+			this.changeRoot();
+		}
+
 		event.preventDefault();
 	}
 
 	onUpdateTitle(title) {
 		let updatedChecklist = Object.assign({}, this.state.checklist, {title: title});
 		this.props.actions.saveChecklist(updatedChecklist);
+
+		if(this.isNewChecklist()) {
+			this.changeRoot();
+		}
 	}
 
 	render() {
@@ -74,9 +95,10 @@ function mapStateToProps(state, ownProps) {
 	const checkListId = parseInt(ownProps.match.params.id, 10);
 	let newChecklistId,
 		defaultChecklist = {
-			id: 0,
+			id: 1,
 			title: '',
-			items: []
+			items: [],
+			isNew: true
 		},
 		checklist;
 

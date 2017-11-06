@@ -29,11 +29,12 @@ export function loadChecklists() {
 
 export function saveChecklist(checklist) {
 	return function(dispatch, getState) {
-		return ChecklistsApi.saveChecklist(checklist).then(savedChecklist => {
-			checklist.id ? dispatch(updateChecklistSuccess(savedChecklist)) : dispatch(createChecklistSuccess(savedChecklist));
-		}).catch(error => {
-			//dispatch(ajaxCallError(error));
-			throw(error);
-		});
+		return ChecklistsApi.saveChecklist(checklist)
+			.then(savedChecklist => {
+				!checklist.isNew ? dispatch(updateChecklistSuccess(savedChecklist)) : dispatch(createChecklistSuccess(savedChecklist));
+			}).catch(error => {
+				//dispatch(ajaxCallError(error));
+				throw(error);
+			});
 	};
 }

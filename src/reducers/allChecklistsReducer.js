@@ -7,20 +7,21 @@ export function allChecklistsReducer(state = initialState.allChecklists, action)
 			return action.checklists;
 
 		case types.CREATE_CHECKLIST_SUCCESS:
+			var newId = (state.length > 0) ? state[state.length - 1].id + 1 : 1;
+			delete action.checklist.isNew;
 			return [
 				...state,
-				Object.assign({}, action.checklist)
+				Object.assign({}, action.checklist, {id: newId})
 			];
 
 		case types.UPDATE_CHECKLIST_SUCCESS:
-			let index = state.indexOf(action.checklist),
+			let index = state.map(function(checklist) {
+				return checklist.id;
+			}).indexOf(action.checklist.id),
 				checklists = [...state];
 
-			return checklists.splice(index, 1, action.checklist);
-			// return [
-			// 	Object.assign({}, action.checklist),
-			// 	...state.filter(checklist => checklist.id !== action.checklist.id)
-			// ];
+			checklists.splice(index, 1, action.checklist);
+			return checklists;
 
 		default:
 			return state;
