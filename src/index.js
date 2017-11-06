@@ -12,7 +12,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
 store.dispatch(loadChecklists());
-store.dispatch(loadChecklist());
+//store.dispatch(loadChecklist());
 
 ReactDOM.render(
     <Provider store={store}>

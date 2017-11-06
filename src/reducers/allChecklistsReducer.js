@@ -13,10 +13,14 @@ export function allChecklistsReducer(state = initialState.allChecklists, action)
 			];
 
 		case types.UPDATE_CHECKLIST_SUCCESS:
-			return [
-				Object.assign({}, action.checklist),
-				...state.filter(checklist => checklist.id !== action.checklist.id)
-			];
+			let index = state.indexOf(action.checklist),
+				checklists = [...state];
+
+			return checklists.splice(index, 1, action.checklist);
+			// return [
+			// 	Object.assign({}, action.checklist),
+			// 	...state.filter(checklist => checklist.id !== action.checklist.id)
+			// ];
 
 		default:
 			return state;

@@ -34,7 +34,6 @@ export class CheckListManager extends React.Component {
 		}));
 
 		this.props.actions.saveChecklist(updatedChecklist);
-		//this.updateNewChecklistId(updatedChecklist);
 	}
 
 	onDeleteItem(event) {
@@ -48,7 +47,6 @@ export class CheckListManager extends React.Component {
 
 	onUpdateTitle(title) {
 		let updatedChecklist = Object.assign({}, this.state.checklist, {title: title});
-		//this.updateNewChecklistId(updatedChecklist);
 		this.props.actions.saveChecklist(updatedChecklist);
 	}
 
@@ -82,15 +80,11 @@ function mapStateToProps(state, ownProps) {
 		},
 		checklist;
 
-	if(state.checklist.id === 0 && !checkListId) {
-		checklist = Object.assign({}, state.checklist, {id: getNextId(state.allChecklists)});
+	if(!checkListId) {
+		checklist = Object.assign({}, defaultChecklist, {id: getNextId(state.allChecklists)});
 		newChecklistId = checklist.id;
 	}
 	else {
-		checklist = state.checklist
-	}
-
-	if (checkListId) {
 		checklist = getChecklistById(state.allChecklists, checkListId) || defaultChecklist;
 	}
 
