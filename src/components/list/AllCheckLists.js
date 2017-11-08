@@ -23,7 +23,7 @@ const AllCheckLists = ({list}) => (
 );
 
 function mapStateToProps(state, ownProps) {
-    let list = state.allChecklists;
+    let list = state.checklists;
     return {list};
 }
 

@@ -8,20 +8,20 @@ let allChecklists = [
         items: [{
             id: '1',
             name: 'test',
-            value: 'testando',
-            label: 'Test'
+            label: 'Test',
+            checked: true
         },
         {
             id: '2',
             name: 'test2',
-            value: 'testando2',
-            label: 'Test2'
+            label: 'Test2',
+            checked: false
         },
         {
             id: '3',
             name: 'test3',
-            value: 'testando3',
-            label: 'Test3'
+            label: 'Test3',
+            checked: true
         }]
     },
     {
@@ -30,20 +30,20 @@ let allChecklists = [
         items: [{
             id: '1',
             name: 'test',
-            value: 'testando',
-            label: 'Test'
+            label: 'Test',
+            checked: false
         },
         {
             id: '2',
             name: 'test2',
-            value: 'testando2',
-            label: 'Test2'
+            label: 'Test2',
+            checked: true
         },
         {
             id: '3',
             name: 'test3',
-            value: 'testando3',
-            label: 'Test3'
+            label: 'Test3',
+            checked: false
         }]
     },
     {
@@ -52,20 +52,20 @@ let allChecklists = [
         items: [{
             id: '1',
             name: 'test',
-            value: 'testando',
-            label: 'Test'
+            label: 'Test',
+            checked: true
         },
         {
             id: '2',
             name: 'test2',
-            value: 'testando2',
-            label: 'Test2'
+            label: 'Test2',
+            checked: true
         },
         {
             id: '3',
             name: 'test3',
-            value: 'testando3',
-            label: 'Test3'
+            label: 'Test3',
+            checked: false
         }]
     }
 ];

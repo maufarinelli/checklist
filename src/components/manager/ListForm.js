@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom';
 
 import './list-form.css';
 
-const ListForm = ({checklist, onAddItem, onDeleteItem, onUpdateTitle}) => (
+const ListForm = ({checklist, onAddItem, onDeleteItem, onUpdateTitle, onCheckboxChange}) => (
 	<div>
 		<Title checklistTitle={checklist.title}/>
 		<form className="checklist-form">
@@ -26,8 +26,9 @@ const ListForm = ({checklist, onAddItem, onDeleteItem, onUpdateTitle}) => (
 					key={listItem.id}
 					id={listItem.id}
 					name={listItem.name}
-					value={listItem.value}
 					label={listItem.label}
+					checked={listItem.checked}
+					onCheckboxChange={onCheckboxChange}
 					onDelete={onDeleteItem} />
 			})}
 
@@ -40,7 +41,8 @@ ListForm.propTypes = {
 	checklist: PropTypes.object.isRequired,
 	onAddItem: PropTypes.func.isRequired,
 	onDeleteItem: PropTypes.func.isRequired,
-	onUpdateTitle: PropTypes.func.isRequired
+	onUpdateTitle: PropTypes.func.isRequired,
+	onCheckboxChange: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {

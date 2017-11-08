@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {bindActionCreators} from 'redux';
-import * as checklistActions from '../../../actions/checklistActions';
 import _ from 'lodash';
 import './text-input.css';
 
@@ -76,7 +74,7 @@ TextInput.propTypes = {
 	label: PropTypes.string,
 	value: PropTypes.string,
 	onAdd: PropTypes.func,
-	onUpdate: PropTypes.func,
+	onUpdate: PropTypes.func
 };
 
 function mapStateToProps(state, ownProps) {
@@ -89,12 +87,6 @@ function mapStateToProps(state, ownProps) {
 	};
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		actions: bindActionCreators(checklistActions, dispatch)
-	};
-}
-
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(TextInput)
+	connect(mapStateToProps)(TextInput)
 )

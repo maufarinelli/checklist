@@ -11,8 +11,6 @@ const Header = () => (
                 <li><Link to="/checklist">Add CheckList</Link></li>
                 {" | "}
                 <li><Link to="/list">See All</Link></li>
-                {" | "}
-                <li><Link to="/about">About</Link></li>
             </ul>
         </nav>
     </header>

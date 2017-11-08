@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
-import * as checklistActions from '../../actions/checklistActions';
 import * as checklistsActions from '../../actions/checklistsActions';
 import ListForm from './ListForm';
 
@@ -17,14 +16,11 @@ export class CheckListManager extends React.Component {
 		this.onAddItem = this.onAddItem.bind(this);
 		this.onDeleteItem = this.onDeleteItem.bind(this);
 		this.onUpdateTitle = this.onUpdateTitle.bind(this);
+		this.onCheckboxChange = this.onCheckboxChange.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({checklist: nextProps.checklist});
-
-		// if(nextProps.newChecklistId) {
-		// 	this.props.actions.saveChecklist(nextProps.checklist);
-		// }
 	}
 
 	isNewChecklist() {
@@ -71,6 +67,29 @@ export class CheckListManager extends React.Component {
 		}
 	}
 
+	onCheckboxChange(event) {
+		let updatedItems = this.state.checklist.items.map(item => {
+			if(item.id === event.target.id) {
+				return {
+					id: item.id,
+					name: item.name,
+					label: item.label,
+					checked: event.target.checked
+				};
+			}
+			else {
+				return {
+					id: item.id,
+					name: item.name,
+					label: item.label,
+					checked: item.checked
+				};
+			}
+		});
+		let updatedChecklist = Object.assign({}, this.state.checklist, {items: updatedItems});
+		this.props.actions.saveChecklist(updatedChecklist);
+	}
+
 	render() {
 		return (
 			<ListForm
@@ -78,13 +97,14 @@ export class CheckListManager extends React.Component {
 					onAddItem={this.onAddItem}
 					onDeleteItem={this.onDeleteItem}
 					onUpdateTitle={this.onUpdateTitle}
+					onCheckboxChange={this.onCheckboxChange}
 				/>
 		);
 	}
 }
 
-function getChecklistById(allCheckLists, id) {
-	return allCheckLists.filter(checklist => checklist.id === id)[0];
+function getChecklistById(checklists, id) {
+	return checklists.filter(checklist => checklist.id === id)[0];
 }
 
 function getNextId(checklists) {
@@ -92,7 +112,7 @@ function getNextId(checklists) {
 }
 
 function mapStateToProps(state, ownProps) {
-	const checkListId = parseInt(ownProps.match.params.id, 10);
+	const checklistId = parseInt(ownProps.match.params.id, 10);
 	let newChecklistId,
 		defaultChecklist = {
 			id: 1,
@@ -102,12 +122,12 @@ function mapStateToProps(state, ownProps) {
 		},
 		checklist;
 
-	if(!checkListId) {
-		checklist = Object.assign({}, defaultChecklist, {id: getNextId(state.allChecklists)});
+	if(!checklistId) {
+		checklist = Object.assign({}, defaultChecklist, {id: getNextId(state.checklists)});
 		newChecklistId = checklist.id;
 	}
 	else {
-		checklist = getChecklistById(state.allChecklists, checkListId) || defaultChecklist;
+		checklist = getChecklistById(state.checklists, checklistId) || defaultChecklist;
 	}
 
 	return {
@@ -118,7 +138,7 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		actions: bindActionCreators({...checklistActions, ...checklistsActions}, dispatch)
+		actions: bindActionCreators(checklistsActions, dispatch)
 	};
 }
 
