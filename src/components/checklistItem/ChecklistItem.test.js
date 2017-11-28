@@ -7,12 +7,12 @@ import ChecklistItem from './ChecklistItem';
 
 configure({ adapter: new Adapter() });
 
-function setupComponent() {
+function setupComponent({id = '', name = '', label = '', checked = false} = {}) {
 	const props = {
-		id: '',
-		name: '',
-		label: '',
-		checked: false,
+		id: id,
+		name: name,
+		label: label,
+		checked: checked,
 		onCheckboxChange: function() {},
 		onDelete: function() {}
 	};
@@ -23,11 +23,9 @@ function setupComponent() {
 describe('Checklist tests', () => {
 	let component;
 
-	beforeEach(function() {
+	it('should render an ChecklistItem with a default initial state', () => {
 		component = setupComponent();
-	});
 
-	it('should render an ChecklistItem text with a default initial state', () => {
 		expect(component.find('input').prop('type')).toEqual('checkbox');
 		expect(component.find('input').prop('name')).toEqual('');
 		expect(component.find('input').prop('id')).toEqual('');
@@ -37,7 +35,42 @@ describe('Checklist tests', () => {
 
 		expect(component.find('button').prop('data-id')).toEqual('');
 
-		expect(component.state().checked).toBeFalsy();
+		expect(component.state().checked).toBe(false);
+	});
+
+	it('should render an ChecklistItem with props given', () => {
+		const config = {
+			id: 'test-id',
+			name: 'test-name',
+			label: 'test-label',
+			checked: true
+		};
+		component = setupComponent(config);
+
+		expect(component.find('input').prop('type')).toEqual('checkbox');
+		expect(component.find('input').prop('name')).toEqual('test-name');
+		expect(component.find('input').prop('id')).toEqual('test-id');
+		expect(component.find('input').prop('checked')).toBeTruthy();
+
+		expect(component.find('label').text()).toEqual('test-label');
+
+		expect(component.find('button').prop('data-id')).toEqual('test-id');
+
+		expect(component.state().checked).toBe(true);
+	});
+
+	it('should change checked state', () => {
+		component = setupComponent();
+
+		expect(component.state().checked).toBe(false);
+		component.find('input').simulate('change', {target: {checked: true}});
+
+		expect(component.state().checked).toBe(true);
+		component.find('input').simulate('change', {target: {checked: false}});
+	});
+
+	it('should call onDelete on button click', () => {
+		
 	});
 
 	afterEach(function() {
