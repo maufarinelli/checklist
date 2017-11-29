@@ -1,20 +1,21 @@
 import expect from 'expect';
 import React from 'react';
-import {mount, shallow} from 'enzyme';
+import {mount, shallow, configure} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
-import TestUtils from 'react-addons-test-utils';
 import {TextInput} from './TextInput';
+
+configure({ adapter: new Adapter() });
 
 function setupComponent(spy) {
 	const props = {
 		type: 'test',
 		onAdd: spy || function() {}
 	};
-
 	return shallow(<TextInput {...props} />);
 }
 
-function setUpTextInputTitle(spy) {
+function setupTextInputTitle(spy) {
 	const props = {
 		type: "horizontal-form",
 		id: "checklist-title",
@@ -24,7 +25,6 @@ function setUpTextInputTitle(spy) {
 		onUpdate: spy || function() {},
 		onAdd: function() {}
 	};
-
 	return shallow(<TextInput {...props} />);
 }
 
@@ -70,7 +70,7 @@ describe('TextInput tests', () => {
 	});
 
 	it('should  render an input text with a default initial state to set title', function() {
-		const component = setUpTextInputTitle();
+		const component = setupTextInputTitle();
 
 		expect(component.find('input').type()).toEqual('input');
 		expect(component.state().value).toEqual('');
@@ -83,7 +83,7 @@ describe('TextInput tests', () => {
 
 	it('should create a checklist title when user click Enter', () => {
 		const spyOnUpdate = sinon.spy();
-		const component = setUpTextInputTitle(spyOnUpdate);
+		const component = setupTextInputTitle(spyOnUpdate);
 
 		component.find('input').simulate('change', { target: { value: 'Abcd' }});
 		component.find('input').simulate('keyPress', {

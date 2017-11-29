@@ -50,7 +50,8 @@ ChecklistItem.propTypes = {
     name: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     checked: PropTypes.bool.isRequired,
-    onCheckboxChange: PropTypes.func.isRequired
+    onCheckboxChange: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired
 };
 
 export default ChecklistItem;
