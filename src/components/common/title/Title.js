@@ -8,6 +8,6 @@ const Title = ({checklistTitle}) => (
 
 Title.propTypes = {
 	checklistTitle: PropTypes.string
-}
+};
 
 export default Title;
