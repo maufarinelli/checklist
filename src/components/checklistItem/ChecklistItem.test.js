@@ -7,14 +7,14 @@ import ChecklistItem from './ChecklistItem';
 
 configure({ adapter: new Adapter() });
 
-function setupComponent({id = '', name = '', label = '', checked = false} = {}) {
+function setupComponent({id = '', name = '', label = '', checked = false, onDelete = function() {}} = {}) {
 	const props = {
 		id: id,
 		name: name,
 		label: label,
 		checked: checked,
 		onCheckboxChange: function() {},
-		onDelete: function() {}
+		onDelete: onDelete
 	};
 
 	return shallow(<ChecklistItem {...props} />);
@@ -70,7 +70,19 @@ describe('Checklist tests', () => {
 	});
 
 	it('should call onDelete on button click', () => {
-		
+		const spyOnDelete = sinon.spy();
+		const config = {
+			id: 'test-id',
+			name: 'test-name',
+			label: 'test-label',
+			checked: true,
+			onDelete: spyOnDelete
+		};
+
+		component = setupComponent(config);
+
+		component.find('button').simulate('click');
+		expect(spyOnDelete.calledOnce).toEqual(true);
 	});
 
 	afterEach(function() {
