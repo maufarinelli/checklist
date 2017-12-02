@@ -11,9 +11,9 @@ export class TextInput extends React.Component {
 
 		this.state = {
 			id: this.props.id,
-			name: this.props.name,
-			value: this.props.value,
-			label: this.props.label
+			name: this.props.name || '',
+			value: this.props.value || '',
+			label: this.props.label || ''
 		};
 
 		this.handleChange = this.handleChange.bind(this);

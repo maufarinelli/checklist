@@ -9,7 +9,7 @@ import {withRouter} from 'react-router-dom';
 
 import './list-form.css';
 
-const ListForm = ({checklist, onAddItem, onDeleteItem, onUpdateTitle, onCheckboxChange}) => (
+export const ListForm = ({checklist, onAddItem, onDeleteItem, onUpdateTitle, onCheckboxChange}) => (
 	<div>
 		<Title checklistTitle={checklist.title}/>
 		<form className="checklist-form">
