@@ -93,7 +93,6 @@ describe('TextInput tests', () => {
 			preventDefault: () => {},
 			currentTarget: {id: 'checklist-title'}
 		});
-
 		expect(spyOnUpdate.calledOnce).toEqual(true);
 		expect(component.state().value).toEqual('');
 	});
