@@ -5,8 +5,8 @@ import * as checklistsActions from '../../actions/checklistsActions';
 import {Link} from 'react-router-dom';
 import './all-checklists.css';
 
-const AllCheckLists = ({list}) => (
-    <div classame="all-checklists">
+export const AllCheckLists = ({list}) => (
+    <div className="all-checklists">
         <h1>All checklists</h1>
         <ul className="list-group">
             {list.map(checklist => {
@@ -27,10 +27,4 @@ function mapStateToProps(state, ownProps) {
     return {list};
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(checklistsActions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllCheckLists);
+export default connect(mapStateToProps)(AllCheckLists);
