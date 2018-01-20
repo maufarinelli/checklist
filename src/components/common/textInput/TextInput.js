@@ -1,7 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import _ from 'lodash';
 import './text-input.css';
 
@@ -13,7 +11,8 @@ export class TextInput extends React.Component {
 			id: this.props.id,
 			name: this.props.name || '',
 			value: this.props.value || '',
-			label: this.props.label || ''
+			label: this.props.label || '',
+			checked: this.props.checked || false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -25,7 +24,8 @@ export class TextInput extends React.Component {
 			id: this.props.id === 'checklist-title' ? this.props.id : _.uniqueId(event.target.value + '_'),
 			name: event.target.value,
 			value: event.target.value,
-			label: event.target.value.substring(0, 1).toUpperCase() + event.target.value.substring(1)
+			label: event.target.value.substring(0, 1).toUpperCase() + event.target.value.substring(1),
+			checked: false
 		});
 	}
 
@@ -43,7 +43,8 @@ export class TextInput extends React.Component {
 				id: '',
 				name: '',
 				value: '',
-				label: ''
+				label: '',
+				checked: false
 			}));
 		}
 	}
@@ -73,20 +74,9 @@ TextInput.propTypes = {
 	id: PropTypes.string,
 	label: PropTypes.string,
 	value: PropTypes.string,
+	checked: PropTypes.bool,
 	onAdd: PropTypes.func,
 	onUpdate: PropTypes.func
 };
 
-function mapStateToProps(state, ownProps) {
-	return {
-		type: ownProps.type,
-		id: ownProps.id,
-		label: ownProps.label,
-		name: ownProps.name,
-		value: ownProps.value
-	};
-}
-
-export default withRouter(
-	connect(mapStateToProps)(TextInput)
-)
+export default TextInput;

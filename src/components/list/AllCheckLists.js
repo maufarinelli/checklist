@@ -1,7 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as checklistsActions from '../../actions/checklistsActions';
 import {Link} from 'react-router-dom';
 import './all-checklists.css';
 

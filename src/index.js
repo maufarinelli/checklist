@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import configureStore from './store/configureStore';
 import {BrowserRouter} from 'react-router-dom';
 import App from './components/app/App';
-import {loadChecklists} from './actions/checklistsActions';
+import {loadChecklists, testFunction} from './actions/checklistsActions';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const store = configureStore();
